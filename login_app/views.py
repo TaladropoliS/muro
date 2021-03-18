@@ -33,7 +33,7 @@ def login(request):
             nacimiento = users.cumple
             edad = actual.year - nacimiento.year
             request.session['log_edad'] = f"{edad}"
-        return render(request, "wall.html")
+        return redirect('wall')
     return redirect('/')
 
 def registro(request):
@@ -62,7 +62,7 @@ def registro(request):
             nacimiento = users.cumple
             edad = actual.year - nacimiento.year
             request.session['log_edad'] = f"{edad}"
-        return render(request, "wall.html")
+        return redirect('wall')
             # FIN AUTO LOGIN #
     return redirect('/')
 

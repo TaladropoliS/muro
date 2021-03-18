@@ -38,13 +38,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="">Bienvenido: {{ request.session.log_name }}</a>
+                        <a class="nav-link" aria-current="page">Bienvenido: {{ request.session.log_name }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="">|</a>
+                        <a class="nav-link" aria-current="page">|</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/logout">log Out</a>
+                        <a class="nav-link active" aria-current="page" href="/logout">log Out</a>
                     </li>
                 </ul>
             </div>
@@ -54,21 +54,62 @@
 
     <div class="container-lg bg-light my-5 mt-2">
         <hr style="color: #0056b2" />
-        <div class="row" style="height: 380px">
-            <div class="col-sm-6 pt-3">
-                <h4 class="">Bienvenido: <b>{{ request.session.log_name }}</b></h4>
-                <h4 class="">Email registrado: <b>{{ request.session.log_email }}</b></h4>
-                <h4 class="">Tu edad es: <b>{{ request.session.log_edad }}</b></h4>
-                <h4 class="">Tu id es: <b>{{ request.session.log_id }}</b></h4>
-                <h3>Tu ingreso fue exitoso</h3>
+        <div class="row">
+            <!--AGREGAR A CLASS PARA DAR ALTO DETERMINADO AL DIV ROW: style="height: 380px" -->
+
+            <!-- MENSAJES -->
+            <div class="col-sm-8 pt-0">
+                <div>
+                    <p>id: {{ request.session.log_id }} - {{ request.session.log_name }} - {{ request.session.log_email }} - {{ request.session.log_edad }} años </p>
+                </div>
+                <div class=" col-sm-12">
+                    <form id="mensaje" name="mensaje" action="/wall/mensaje" method="post"> {% csrf_token %}
+                        <label for="mensaje" class="form-label"><b>Enviar un Mensaje</b></label>
+                        <textarea id="mensaje_wall" name="mensaje_wall" class="form-control" rows="3" placeholder="Ingresa tu mensaje"></textarea>
+                        <input type="submit" for="mensaje" value="Enviar mensaje" class="btn btn-dark mt-1"></button>
+                    </form>
+                </div>
             </div>
 
-            <div class="col-lg-6 pt-5 text-center">
-                <div class="col-lg-6 pt-5" style="height: 250px"></div>
+            <!-- MENSAJES -->
+            <div class="col-lg-4 pt-5 text-center">
+                <div class="col-lg-6 pt-3"></div>
                 <img src="../static/img/wall.png" class="shadow p-1 mb-1 bg-light" width="275px" alt="Wall">
             </div>
 
         </div>
+
+        <!-- MURO DE MENSAJES -->
+        <div class="row">
+            <div class="col-lg-8 pt-5">
+                {% for mensaje in mensaje_w %}
+                <div class="border border-secondary m-3">
+                    <div class="shadow-sm ps-2 p-0 mb-0 bg-body rounded">
+                        <p><b>{{ request.session.log_name }}</b> - Fecha del mensaje: {{ mensaje.created_at }}</p>
+                    </div>
+                    <div class="ps-2">
+                        <p>{{ mensaje.mensaje }}</p>
+                    </div>
+                    <div class="row px-3 text-center">
+                        <div class="col-sm-2 ps-2 p-0 mb-0 bg-body rounded">
+                            <form id="eliminar" name="eliminar" action="/wall/eliminar" method="post"> {% csrf_token %}
+                                <input type="submit" for="eliminar" value="eliminar" class="btn btn-danger mt-1"></button>
+                            </form>
+                        </div>
+                        <div class="col-sm-2 ps-2 p-0 mb-0 bg-body rounded">
+                            <form id="comentar" name="comentar" action="/wall/comentar" method="post"> {% csrf_token %}
+                                <input type="submit" for="comentar" value="comentar" class="btn btn-success mt-1"></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="text-center">
+                    <img src="../static/img/wall.png" class="shadow p-1 mb-1 bg-light" width="275px" alt="Wall">
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- FOOTER -->

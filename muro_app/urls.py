@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('wall', views.wall),
+    path('', views.wall, name='wall'),
+    path('/mensaje', views.mensaje, name='mensaje')
     ]

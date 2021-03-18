@@ -7,10 +7,21 @@ from django.contrib.auth import logout as do_logout
 from django.db.models import Q, Max, Count, F
 # Create your views here.
 
-def wall(request, id):
-    request.session['log_name'] = ""
-    request.session['log_email'] = ""
-    request.session['log_id'] = ""
-    request.session['log_edad'] = 0
-    request.session['log_user'] = 0
-    return render(request, 'wall.html')
+def wall(request):
+    if request.session['log_user']:
+        context = {
+            'mensaje_w': Mensajes.objects.all().order_by('-id'),
+            'comentario_w': Comentarios.objects.all()
+        }
+    else:
+        return redirect('/')
+    return render(request, 'wall.html', context)
+
+def mensaje(request):
+    if request.session['log_user']:
+        if request.method == "POST":
+            id = request.session['log_id']
+            mensaje_w = Mensajes.objects.create(mensaje=request.POST['mensaje_wall'], mensaje_usuario_id=Usuario.objects.get(id=id))
+            return redirect('wall')
+        return redirect('/')
+    return redirect('/')
