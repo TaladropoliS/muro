@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
-from .models import Usuario, Cuenta
+from login_app.models import Usuario, Cuenta
 from datetime import date
 from django.contrib.auth import logout as do_logout
 from django.db.models import Q, Max, Count, F
@@ -33,7 +33,7 @@ def login(request):
             nacimiento = users.cumple
             edad = actual.year - nacimiento.year
             request.session['log_edad'] = f"{edad}"
-        return render(request, "logeado.html")
+        return render(request, "wall.html")
     return redirect('/')
 
 def registro(request):
@@ -62,7 +62,7 @@ def registro(request):
             nacimiento = users.cumple
             edad = actual.year - nacimiento.year
             request.session['log_edad'] = f"{edad}"
-        return render(request, "logeado.html")
+        return render(request, "wall.html")
             # FIN AUTO LOGIN #
     return redirect('/')
 
@@ -74,4 +74,4 @@ def logout(request):
     request.session['log_edad'] = 0
     request.session['registrado'] = 0
     do_logout(request)
-    return redirect('/login')
+    return redirect('/')

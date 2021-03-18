@@ -18,7 +18,7 @@
 
     <!-- <link rel="shortcut icon" type="image/x-icon" href="../static/img/favicon.ico"> -->
 
-    <title>LogIn</title>
+    <title>Wall</title>
 
 </head>
 
@@ -27,7 +27,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container-fluid mx-5 ">
             <a class="navbar-brand" href="">
-                <img src="../static/img/login.png" width="175px" alt="LogIn">
+                <img src="../static/img/wall.png" class="shadow p-1 mb-1 bg-light rounded" width="175px" alt="Wall">
             </a>
 
             <!-- Menu hamburguesa -->
@@ -37,6 +37,12 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="">Bienvenido: {{ request.session.log_name }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="">|</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/logout">log Out</a>
                     </li>
@@ -49,7 +55,7 @@
     <div class="container-lg bg-light my-5 mt-2">
         <hr style="color: #0056b2" />
         <div class="row" style="height: 380px">
-            <div class="col-sm-8 pt-3">
+            <div class="col-sm-6 pt-3">
                 <h4 class="">Bienvenido: <b>{{ request.session.log_name }}</b></h4>
                 <h4 class="">Email registrado: <b>{{ request.session.log_email }}</b></h4>
                 <h4 class="">Tu edad es: <b>{{ request.session.log_edad }}</b></h4>
@@ -57,9 +63,9 @@
                 <h3>Tu ingreso fue exitoso</h3>
             </div>
 
-            <div class="col-lg-4 pt-5">
-                <div class="col-sm-4 pt-5" style="height: 250px"></div>
-                <img src="../static/img/login.png" width="300px" alt="Cursos">
+            <div class="col-lg-6 pt-5 text-center">
+                <div class="col-lg-6 pt-5" style="height: 250px"></div>
+                <img src="../static/img/wall.png" class="shadow p-1 mb-1 bg-light" width="275px" alt="Wall">
             </div>
 
         </div>
@@ -67,15 +73,15 @@
 
     <!-- FOOTER -->
 
-    <div id="footer " class="bg-dark ">
+    <div id="footer " class="bg-light ">
+        <hr style="color: #0056b2" />
         <div class="container w-50 ">
             <div class="row justify-content-md-center py-4 ">
-                <div class="col text-center font-weight-light text-light ">
-                    <p>LogIn | TaladropoiS | CodingDojo</p>
-                    <p>Fernando Taladriz</p>
+                <div class="col text-center font-weight-light text-dark" style="margin-top: -1.0rem !important">
+                    <p>Wall | TaladropoiS | CodingDojo<br>Fernando Taladriz © 2021</p>
                 </div>
             </div>
-            <div class="row "></div>
+            <div class="row m-0 p-0"></div>
         </div>
     </div>
 

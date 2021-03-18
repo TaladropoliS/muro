@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
-from .models import Usuario, Cuenta
+from login_app.models import Usuario, Cuenta
+from muro_app.models import Mensajes, Comentarios
 from datetime import date
 from django.contrib.auth import logout as do_logout
 from django.db.models import Q, Max, Count, F
