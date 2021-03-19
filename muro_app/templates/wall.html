@@ -91,12 +91,12 @@
                         <div class="col-sm-2 p-2 p-0 mb-0 bg-body rounded">
                             <!-- ELIMINAR MENSAJE -->
                             <div class="col-sm-2 p-2 p-0 mb-0 bg-body rounded">
+                                {% ifequal mensaje.mensaje_usuario_id.id|slugify request.session.log_id|slugify %}
                                 <form id="eliminar_msj" name="eliminar_msj" action="/wall/eliminar_msj/{{ mensaje.id }}" method="post"> {% csrf_token %}
                                     <input type="submit" for="eliminar_msj" value="eliminar" class="btn btn-outline-danger btn-sm my-1"></button>
                                 </form>
-                                {% if mensaje.mensaje_usuario_id.id == request.session.log_id %}
-                                <p>{{ request.session.log_id }} - {{ mensaje.mensaje_usuario_id.id }}</p>
-                                {% endif %}
+                                {% endifequal %}
+
                             </div>
                         </div>
 
@@ -112,9 +112,11 @@
                                     <p>{{coment.comentario}}</p>
                                 </div>
                                 <div class="col-sm-2 ps-2 p-1 m-1 bg-body rounded">
+                                    {% ifequal mensaje.mensaje_usuario_id.id|slugify request.session.log_id|slugify %}
                                     <form id="eliminar_com" name="eliminar_com" action="/wall/eliminar_com/{{ coment.id }}" method="post"> {% csrf_token %}
                                         <input type="submit" for="eliminar_msj" value="eliminar" class="btn btn-outline-danger btn-sm my-1"></button>
                                     </form>
+                                    {% endifequal %}
                                 </div>
                             </div>
                             {% endif %} {% endfor %}
