@@ -63,7 +63,7 @@
                     <form id="mensaje" name="mensaje" action="/wall/mensaje" method="post"> {% csrf_token %}
                         <label for="mensaje" class="form-label"><b>PUBLICAR MENSAJE</b></label>
                         <textarea id="mensaje_wall" name="mensaje_wall" class="form-control" rows="3" placeholder="Ingresa tu mensaje"></textarea>
-                        <input type="submit" for="mensaje" value="Enviar mensaje" class="btn btn-dark mt-1"></button>
+                        <input type="submit" for="mensaje" value="Enviar mensaje" class="btn btn-outline-secondary mt-1"></button>
                     </form>
                 </div>
             </div>
@@ -83,26 +83,25 @@
                     <div class="shadow-sm ps-2 p-0 mb-0 bg-body rounded">
                         <p><b>{{ request.session.log_name }}</b> - Fecha del mensaje: {{ mensaje.created_at }}</p>
                     </div>
-                    <div class="ps-2">
-                        <p>{{ mensaje.id }} {{ mensaje.mensaje }}</p>
+                    <div class="ps-2 mx-2 border border-1">
+                        <p>{{ mensaje.mensaje }}</p>
                     </div>
                     <div class="row px-3">
-                        <div class="col-sm-2 ps-2 p-0 mb-0 bg-body rounded">
+                        <div class="col-sm-2 p-2 p-0 mb-0 bg-body rounded">
                             <!-- ELIMINAR MENSAJE -->
                             <form id="eliminar_msj" name="eliminar_msj" action="/wall/eliminar_msj/{{ mensaje.id }}" method="post"> {% csrf_token %}
                                 <input type="submit" for="eliminar_msj" value="eliminar" class="btn btn-outline-danger btn-sm my-1"></button>
                             </form>
                         </div>
-                        <div class="col-sm-10 ps-2 p-0 mb-0 bg-body rounded">
-                            <hr style="color: #0056b2" />
+                        <div class="col-sm-10 ps-1 p-0 mb-0 mt-3 bg-body rounded">
                             <!-- COMENTAR -->
                             <form id="comentar" name="comentar" action="/wall/comentar/{{ mensaje.id }}" method="post"> {% csrf_token %}
-                                <textarea id="coment_wall" name="coment_wall" class="form-control" rows="3" placeholder="Comentar"></textarea>
+                                <textarea id="coment_wall" name="coment_wall" class="form-control" rows="2" placeholder="Comentar"></textarea>
                                 <input type="submit" for="comentar" value="comentar" class="btn btn-outline-success btn-sm my-1"></button>
                             </form>
                             {% for coment in comentario_w %} {% if coment.comentario_mensaje_id.id == mensaje.id %}
-                            <div class="row">
-                                <div class="col-sm-9 ps-2 p-1 m-1 bg-body rounded border border-1">
+                            <div class="row ps-2">
+                                <div class="col-sm-9 ps-1 p-1 m-1 bg-body rounded border border-1">
                                     <p>{{coment.comentario}}</p>
                                 </div>
                                 <div class="col-sm-2 ps-2 p-1 m-1 bg-body rounded">
