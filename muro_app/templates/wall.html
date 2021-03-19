@@ -62,6 +62,7 @@
                     <!-- PUBLICAR MENSAJES -->
                     <form id="mensaje" name="mensaje" action="/wall/mensaje" method="post"> {% csrf_token %}
                         <label for="mensaje" class="form-label"><b>PUBLICAR MENSAJE</b></label>
+                        <p style="background-color: #E9ECEF"><small>Solo los autores de los mensajes pueden borrar sus mensajes y los comentarios de sus mensajes.</small></p>
                         <textarea id="mensaje_wall" name="mensaje_wall" class="form-control" rows="3" placeholder="Ingresa tu mensaje"></textarea>
                         <input type="submit" for="mensaje" value="Enviar mensaje" class="btn btn-outline-secondary mt-1"></button>
                     </form>
@@ -81,7 +82,8 @@
                 {% for mensaje in mensaje_w %}
                 <div class="border border-secondary m-3">
                     <div class="shadow-sm ps-2 p-0 mb-0 bg-body rounded">
-                        <p><b>{{ mensaje.mensaje_usuario_id.nombre }} {{ mensaje.mensaje_usuario_id.apellido }}</b> - Fecha del mensaje: {{ mensaje.created_at }}</p>
+                        <p><b><small>{{ mensaje.mensaje_usuario_id.nombre }} {{ mensaje.mensaje_usuario_id.apellido }}</b> - Fecha del mensaje: {{ mensaje.created_at }}</small>
+                        </p>
                     </div>
                     <div class="ps-2 mx-2 border border-1">
                         <p>{{ mensaje.mensaje }}</p>
@@ -108,7 +110,8 @@
                             </form>
                             {% for coment in comentario_w %} {% if coment.comentario_mensaje_id.id == mensaje.id %}
                             <div class="row ps-2">
-                                <div class="col-sm-9 ps-1 p-1 m-1 bg-body rounded border border-1">
+                                <div class="col-sm-11 ps-1 p-1 mx-1 bg-body rounded border border-1">
+                                    <p style="background-color: #E9ECEF; color: #ADB5BD"><small>{{ coment.comentario_usuario_id.nombre }} {{ coment.comentario_usuario_id.apellido }} - Fecha comentario: {{ coment.created_at }}</small></p>
                                     <p>{{coment.comentario}}</p>
                                 </div>
                                 <div class="col-sm-2 ps-2 p-1 m-1 bg-body rounded">
