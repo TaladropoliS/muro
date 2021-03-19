@@ -10,13 +10,17 @@ from django.db.models import Q, Max, Count, F
 def wall(request):
     if request.session['log_user']:
         u_id = request.session['log_id']
+
         context = {
-            'mensaje_w': Mensajes.objects.all().filter(mensaje_usuario_id=u_id).order_by('-id'),
-            'comentario_w': Comentarios.objects.all().filter(comentario_usuario_id=u_id).order_by('-id')
+            # 'mensaje_w': Mensajes.objects.all().filter(mensaje_usuario_id=u_id).order_by('-id'),
+            # 'comentario_w': Comentarios.objects.all().filter(comentario_usuario_id=u_id).order_by('-id')
+
+            'mensaje_w': Mensajes.objects.all().order_by('-id'),
+            'comentario_w': Comentarios.objects.all().order_by('-id')
         }
-    else:
-        return redirect('/')
-    return render(request, 'wall.html', context)
+
+        return render(request, 'wall.html', context)
+    return redirect('/')
 
 def mensaje(request):
     if request.session['log_user']:
