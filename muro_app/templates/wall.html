@@ -57,22 +57,18 @@
         <div class="row">
             <!--AGREGAR A CLASS PARA DAR ALTO DETERMINADO AL DIV ROW: style="height: 380px" -->
 
-            <!-- MENSAJES -->
             <div class="col-sm-8 pt-0">
-                <div>
-                    <p>id: {{ request.session.log_id }} - {{ request.session.log_name }} - {{ request.session.log_email }} - {{ request.session.log_edad }} años </p>
-                </div>
                 <div class=" col-sm-12">
+                    <!-- PUBLICAR MENSAJES -->
                     <form id="mensaje" name="mensaje" action="/wall/mensaje" method="post"> {% csrf_token %}
-                        <label for="mensaje" class="form-label"><b>Enviar un Mensaje</b></label>
+                        <label for="mensaje" class="form-label"><b>PUBLICAR MENSAJE</b></label>
                         <textarea id="mensaje_wall" name="mensaje_wall" class="form-control" rows="3" placeholder="Ingresa tu mensaje"></textarea>
                         <input type="submit" for="mensaje" value="Enviar mensaje" class="btn btn-dark mt-1"></button>
                     </form>
                 </div>
             </div>
 
-            <!-- MENSAJES -->
-            <div class="col-lg-4 pt-5 text-center">
+            <div class="col-lg-4 pt-3 text-center">
                 <div class="col-lg-6 pt-3"></div>
                 <img src="../static/img/wall.png" class="shadow p-1 mb-1 bg-light" width="275px" alt="Wall">
             </div>
@@ -88,18 +84,34 @@
                         <p><b>{{ request.session.log_name }}</b> - Fecha del mensaje: {{ mensaje.created_at }}</p>
                     </div>
                     <div class="ps-2">
-                        <p>{{ mensaje.mensaje }}</p>
+                        <p>{{ mensaje.id }} {{ mensaje.mensaje }}</p>
                     </div>
-                    <div class="row px-3 text-center">
+                    <div class="row px-3">
                         <div class="col-sm-2 ps-2 p-0 mb-0 bg-body rounded">
-                            <form id="eliminar" name="eliminar" action="/wall/eliminar" method="post"> {% csrf_token %}
-                                <input type="submit" for="eliminar" value="eliminar" class="btn btn-danger mt-1"></button>
+                            <!-- ELIMINAR MENSAJE -->
+                            <form id="eliminar_msj" name="eliminar_msj" action="/wall/eliminar_msj/{{ mensaje.id }}" method="post"> {% csrf_token %}
+                                <input type="submit" for="eliminar_msj" value="eliminar" class="btn btn-outline-danger btn-sm my-1"></button>
                             </form>
                         </div>
-                        <div class="col-sm-2 ps-2 p-0 mb-0 bg-body rounded">
-                            <form id="comentar" name="comentar" action="/wall/comentar" method="post"> {% csrf_token %}
-                                <input type="submit" for="comentar" value="comentar" class="btn btn-success mt-1"></button>
+                        <div class="col-sm-10 ps-2 p-0 mb-0 bg-body rounded">
+                            <hr style="color: #0056b2" />
+                            <!-- COMENTAR -->
+                            <form id="comentar" name="comentar" action="/wall/comentar/{{ mensaje.id }}" method="post"> {% csrf_token %}
+                                <textarea id="coment_wall" name="coment_wall" class="form-control" rows="3" placeholder="Comentar"></textarea>
+                                <input type="submit" for="comentar" value="comentar" class="btn btn-outline-success btn-sm my-1"></button>
                             </form>
+                            {% for coment in comentario_w %} {% if coment.comentario_mensaje_id.id == mensaje.id %}
+                            <div class="row">
+                                <div class="col-sm-9 ps-2 p-1 m-1 bg-body rounded border border-1">
+                                    <p>{{coment.comentario}}</p>
+                                </div>
+                                <div class="col-sm-2 ps-2 p-1 m-1 bg-body rounded">
+                                    <form id="eliminar_com" name="eliminar_com" action="/wall/eliminar_com/{{ coment.id }}" method="post"> {% csrf_token %}
+                                        <input type="submit" for="eliminar_msj" value="eliminar" class="btn btn-outline-danger btn-sm my-1"></button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endif %} {% endfor %}
                         </div>
                     </div>
                 </div>
